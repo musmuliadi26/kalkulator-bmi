@@ -8,22 +8,66 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-    <title>Kalkulator BMI/IMT</title>
+    <!-- my CSS -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+
+    <title>Kalkulator BMI</title>
   </head>
   <body>
     <div class="container mt-5">
       <div class="row">
         <div class="col">
-          <h2>Kalkulator BMI/IMT</h2>
+          <h2>Kalkulator BMI</h2>
         </div>
       </div>
       <div class="row">
-        <div class="col-md-5">
+        <div class="col">
           <p>Body Mass Index (BMI) atau Indeks Massa Tubuh (IMT) adalah angka yang menjadi penilaian standar untuk menentukan apakah berat badan Anda tergolong normal, kurang, berlebih, atau obesitas.</p>
         </div>
-        <div class="col-md-7">
-          <form id="bmiForm">
+      </div>
+      <div class="row justify-content-center text-center">
+        <div class="col-sm-3 mb-3">
+          <div class="card bg-info">
+            <div class="card-body">
+              <h1 class="card-title"><18.5</h1>
+              <p class="card-text">Underweight</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3 mb-3">
+          <div class="card bg-success">
+            <div class="card-body">
+              <h1 class="card-title">18.5 - 25.0</h1>
+              <p class="card-text">Normal</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3 mb-3">
+          <div class="card bg-warning">
+            <div class="card-body">
+              <h1 class="card-title">25.1 - 27.0</h1>
+              <p class="card-text">Overweight</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3 mb-3">
+          <div class="card bg-danger">
+            <div class="card-body">
+              <h1 class="card-title">>27</h1>
+              <p class="card-text">Obesitas</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row mt-3">
+        <div class="col-md-4 mb-3">
+          <form id="bmiForm" name="bmiForm" onsubmit="return false">
             <div class="mb-3">
+              <label for="jenis-kelamin" class="form-label">Masukkan Jenis Kelamin :</label>
               <select class="form-select" id="jenis-kelamin">
                 <option selected>Pilih jenis kelamin</option>
                 <option value="pria">Pria</option>
@@ -31,81 +75,156 @@
               </select>
             </div>
             <div class="mb-3">
-              <input type="text" class="form-control" id="tinggi-badan" placeholder="Masukkan tinggi badan(cm)" required>
+              <label for="tinggi-badan" class="form-label">Masukkan Tinggi badan(cm) :</label>
+              <input type="text" class="form-control" id="tinggi-badan" placeholder="Example : 1.75">
             </div>
             <div class="mb-3">
-              <input type="number" class="form-control" id="berat-badan" placeholder="Masukkan berat badan(Kg)" required>
+              <label for="tinggi-badan" class="form-label">Masukkan Berat badan(Kg) :</label>
+              <input type="number" class="form-control" id="berat-badan" placeholder="Example : 75">
             </div>
-            <button type="submit" class="btn btn-secondary">Hitung</button>
+            <input type="submit" value="Hitung" class="btn btn-secondary" onclick="bmi();">
           </form>
         </div>
-      </div>
-      <div class="row">
         <div class="col">
-          <div id="bmi">
+          <div class="row justify-content-center" id="HomeBmi">
             
           </div>
-          <div id="bbi">
-            
+          <div class="row justify-content-center" id="AboutBmi">
+
           </div>
         </div>
       </div>
+      <hr>
+      <div class="row">
+        
+      </div>
+    </div>
+
+    <div id="footer" class=" text-center mt-5">
+      <h5>Created by <a href="https://github.com/musmuliadi26" target="_blank" class="text-decoration-none"><i class="bi bi-github"></i> Musmuliadi</a></h5>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
   </body>
   <script type="text/javascript">
-    function bmi(tb, bb){
-      let vtb = tb ** 2;
-      const bvtb = vtb.toFixed(2);
-      const hasil = bb / bvtb;
+    function displayBmi(a, b){
+      const home = document.getElementById('HomeBmi');
+      const about = document.getElementById('AboutBmi');
+      let card = "";
+      let  isiAbout= "";
 
-      const displayBmi = document.getElementById('bmi');
-      const h1 = document.createElement("h3");
-      h1.textContent = hasil;
-      displayBmi.appendChild(h1);
+      let tb = a ** 2;
+      let tbf = tb.toFixed(2);
+      let hasil = b / tbf;
+      let hasilf = hasil.toFixed(1);
 
+      if(hasilf < 18.5){
+        card = `<h2 class="mb-3">BMI anda : </h2>`+
+                `<div class="col-sm-6 mb-4 text-center">`+
+                  '<div class="card bg-info">'+
+                    `<div class="card-body">`+
+                      `<h1 class="card-title">${hasilf}</h1>`+
+                      `<p class="card-text">Underweight</p>`+
+                    `</div>`+
+                  `</div>`+
+                `</div>`;
+        isiAbout = `<h4>Nilai BMI anda ${hasilf} (underweight)</h4>`+
+                `<p>Anda dapat dikatakan memiliki berat badan kurang atau underweight karena angka BMI Anda kurang dari angka 18,5. Berat badan kurang bukanlah kondisi yang sehat.</p>`+
+                `<p>Kondisi ini dapat meningkatkan risiko Anda untuk mengalami beberapa masalah kesehatan, seperti sistem kekebalan tubuh lemah, tulang menjadi rapuh, sulit memperoleh keturunan atau infertilitas, hingga kurang gizi.</p>`+
+                `<p>Untuk meningkatkan berat badan agar lebih ideal, Anda perlu menyiasatinya dengan pola makan sehat yang terdiri dari makanan dengan kandungan nutrisi lengkap, seperti karbohidrat, protein, lemak sehat, serta aneka vitamin dan mineral.</p>`+
+                `<p>Anda bisa memenuhi asupan nutrisi tersebut dengan mengonsumsi nasi, buah, sayuran, ikan, telur, kacang-kacangan, dan susu.</p>`+
+                `<a href="https://www.alodokter.com/memahami-kalkulator-berat-badan-ideal" target="_blank">Baca selangkapnya di sini</a>`;
+        home.innerHTML = card;
+        about.innerHTML = isiAbout;
+      }else if(hasilf <= 25){
+        card = `<h2 class="mb-3">BMI anda : </h2>`+
+                `<div class="col-sm-6 mb-3 text-center">`+
+                  '<div class="card bg-success">'+
+                    `<div class="card-body">`+
+                      `<h1 class="card-title">${hasilf}</h1>`+
+                      `<p class="card-text">Normal</p>`+
+                    `</div>`+
+                  `</div>`+
+                `</div>`;
+        isiAbout = `<h4>Nilai BMI Anda ${hasilf} (normal)</h4>`+
+                    `<p>Nilai BMI Anda termasuk pada rentang angka yang disebut berat badan normal atau ideal. Namun, memiliki berat badan ideal bukan berarti Anda bebas melakukan apa pun.</p>`+
+                    `<p>Anda tetap dianjurkan untuk menjaga berat badan dan kesehatan tubuh secara keseluruhan dengan mengonsumsi makanan bernutrisi, mencukupi waktu istirahat, melakukan olahraga secara rutin, serta menghindari kebiasaan buruk, seperti merokok atau mengonsumsi minuman beralkohol.</p>`+
+                    `<a href="https://www.alodokter.com/memahami-kalkulator-berat-badan-ideal" target="_blank">Baca selangkapnya di sini</a>`;
+        home.innerHTML = card;
+        about.innerHTML = isiAbout;
+      }else if(hasilf <= 27){
+        card = `<h2 class="mb-3">BMI anda : </h2>`+
+                `<div class="col-sm-6 mb-3 text-center">`+
+                  '<div class="card bg-warning">'+
+                    `<div class="card-body">`+
+                      `<h1 class="card-title">${hasilf}</h1>`+
+                      `<p class="card-text">Overweight</p>`+
+                    `</div>`+
+                  `</div>`+
+                `</div>`;
+        isiAbout = `<h4>Nilai BMI Anda ${hasilf} (overweight)</h4>`+
+                    `<p>Bila hasil perhitungan BMI Anda menunjukkan nilai antara 25,1–27,0, berarti Anda memiliki berat badan berlebih atau overweight.</p>`+
+                    `<p>Kondisi ini juga tidak baik bagi kesehatan karena dapat meningkatkan risiko berbagai penyakit, seperti stroke, diabetes tipe 2, osteoarthritis, dan hipertensi. Sebagai upaya pencegahan, Anda disarankan mengambil langkah untuk mengurangi berat badan.</p>`+
+                    `<p>Hal ini bisa dilakukan dengan cara mengurangi asupan makanan yang mengandung gula atau karbohidrat dan kolesterol. Kedua jenis makanan tersebut dapat menyebabkan tubuh menghasilkan banyak jaringan lemak yang dapat memicu peningkatan berat badan.</p>`+
+                    `<p>Untuk menurunkan berat badan, cobalah mulai memperbanyak asupan protein, seperti ikan, telur, tahu, dan tempe, buah dan sayur, serta dianjurkan untuk minum air 30 menit sebelum makan agar Anda merasa lebih cepat kenyang. Jangan lupa juga untuk rutin berolahraga minimal 20–30 menit setiap hari atau minimal 3 kali seminggu.</p>`+
+                    `<a href="https://www.alodokter.com/memahami-kalkulator-berat-badan-ideal" target="_blank">Baca selangkapnya di sini</a>`;
+        home.innerHTML = card;
+        about.innerHTML = isiAbout;
+      }else if(hasilf > 27){
+        card = `<h2 class="mb-3">BMI anda : </h2>`+
+                `<div class="col-sm-6 mb-3 text-center">`+
+                  '<div class="card bg-danger">'+
+                    `<div class="card-body">`+
+                      `<h1 class="card-title">${hasilf}</h1>`+
+                      `<p class="card-text">Obesitas</p>`+
+                    `</div>`+
+                  `</div>`+
+                `</div>`;
+        isiAbout = `<h4>Nilai BMI Anda ${hasilf} (obesitas)</h4>`+
+                    `<p>Jika hasil perhitungan BMI Anda menunjukkan angka di atas 27, berarti Anda sudah mengalami obesitas.</p>`+
+                    `<p>Obesitas adalah kondisi ketika Anda memiliki jumlah lemak yang berlebih di dalam tubuh. Kondisi ini tidak baik untuk kesehatan karena dapat meningkatkan risiko penyakit jantung, diabetes, stroke, dan tekanan darah tinggi.</p>`+
+                    `<p>Untuk mengatasinya, Anda disarankan untuk mengurangi jumlah kalori yang masuk ke dalam tubuh dengan mengonsumsi makanan yang lebih sehat, seperti sayuran dan buah-buahan, serta berolahraga secara rutin.</p>`+
+                    `<p>Jika perlu, Anda bisa berkonsultasi dengan dokter untuk memulai program pengurangan berat badan untuk memperoleh berat badan ideal.</p>`+
+                    `<a href="https://www.alodokter.com/memahami-kalkulator-berat-badan-ideal" target="_blank">Baca selangkapnya di sini</a>`;
+        home.innerHTML = card;
+        about.innerHTML = isiAbout;
+      }else{
+        card = `<h2 class="mb-3">BMI anda : </h2>`+
+                `<div class="col-sm-6 mb-3 text-center">`+
+                  '<div class="card bg-secondary">'+
+                    `<div class="card-body">`+
+                      `<p class="card-text">Data belum dimasukkan</p>`+
+                    `</div>`+
+                  `</div>`+
+                `</div>`;
+        home.innerHTML = card;
+      }
     }
-
-    function display(a, b, c) {
-      bmi(b, c);
-    }
-
-    document.forms['bmiForm'].onsubmit = function (event){
-      event.preventDefault();
-
-      const jk = document.forms['bmiForm']['jenis-kelamin'].value;
-      const tb = document.forms['bmiForm']['tinggi-badan'].value;
-      const bb = document.forms['bmiForm']['berat-badan'].value;
-
-      document.forms['bmiForm'].reset();
-
-      display(jk, tb, bb);
-    }
-
-    // function bbid(a) {
-    //   let tb = a - 100;
-    //   let persen = tb * 10 / 100;
-    //   let hasil = tb - persen;
-
-    //   return hasil;
+    // function displayBbi(x, y){
+    //   const h1 = document.querySelector('.hasilBbi');
+    //   if(x == "pria"){
+    //     let a = y - 100;
+    //     let b = a * 10 / 100;
+    //     let hasil = a - b;
+        
+    //     h1.innerHTML = hasil;
+    //   }else{
+    //     let a = y - 100;
+    //     let b = a * 15 / 100;
+    //     let hasil = a - b;
+        
+    //     h1.innerHTML = hasil;
+    //   }
     // }
+    function bmi() {
+      const form = document.getElementById('bmiForm');
+      const jk = document.getElementById('jenis-kelamin').value;
+      const tb = document.getElementById('tinggi-badan').value;
+      const bb = document.getElementById('berat-badan').value;
 
-    // console.log(bbid(170));
-
-    // function bbi(a, b){
-    //   let bulat = b * b;
-    //   let hbulat = bulat.toFixed(2);
-    //   let imt = a / hbulat;
-    //   return imt;
-    // }
-
-    // console.log(bbi(63, 1.70));
-    // console.log(1.75 * 1.75);
-
-    // Referensi
-    // https://www.alodokter.com/memahami-kalkulator-berat-badan-ideal
-    // https://www.halodoc.com/artikel/cara-hitung-berat-badan-ideal
-    // https://www.bola.com/ragam/read/4587536/3-cara-menghitung-berat-badan-ideal-untuk-pria-wanita-dan-anak-anak
+      displayBmi(tb, bb);
+      // displayBbi(jk, tb);
+      form.reset();
+    }
   </script>
 </html>
