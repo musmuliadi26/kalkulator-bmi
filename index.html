@@ -122,7 +122,7 @@
   <script type="text/javascript">
     function displayBmi(a, b, c){
       if (a == 0 || b == 0) {
-          console.log("anda belum memasukkan tinggi badan atau berat badan"); // akan di perbaiki nanti
+          alert("Anda belum memasukkan berat badan atau tinggi badan");
         }else{
           const displayContentBmi = document.getElementById('display-content-bmi');
           const displayContentBbi = document.getElementById('display-content-bbi');
@@ -242,7 +242,7 @@
         
         displayBmi(y, w, hasilp);
       }else{
-        console.log("anda belum memilih jenis kalamin") // akan di perbaiki nanti
+        alert("Anda belum memilih Jenis kelamin")
       }
     }
     function bmi() {
